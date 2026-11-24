@@ -1,0 +1,21 @@
+name: kaamos_ui_gallery
+description: Gallery dei componenti Kaamos per Flutter (desktop, mobile, web).
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # La libreria dalla cartella sopra: ogni modifica si vede subito, senza tag.
+  kaamos_ui:
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+# Niente uses-material-design: la gallery non usa le icone Material.

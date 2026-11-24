@@ -1,0 +1,21 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+  language:
+    strict-casts: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # Performance: const evita di ricostruire oggetti identici a ogni build.
+    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    # API pubblica documentata.
+    - public_member_api_docs
+    - always_declare_return_types
+    - prefer_final_locals
+    - directives_ordering
