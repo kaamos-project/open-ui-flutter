@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # Linux: i golden test sono generati su Linux (il testo si disegna in
+    # modo diverso su ogni sistema operativo).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          # Fissata: una nuova versione può cambiare di qualche pixel il
+          # rendering e far fallire i golden. Si aggiorna a mano, insieme ai golden.
+          flutter-version: 3.50.1
+          cache: true
+
+      - name: Dipendenze
+        run: flutter pub get
+
+      - name: Formattazione
+        run: dart format --output=none --set-exit-if-changed lib test example/lib
+
+      - name: Analisi (libreria)
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+      - name: Analisi (gallery)
+        working-directory: example
+        run: |
+          flutter pub get
+          flutter analyze
+
+      - name: Build web della gallery
+        working-directory: example
+        run: flutter build web --no-web-resources-cdn
+
+      - name: Golden falliti
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: test/**/failures/
