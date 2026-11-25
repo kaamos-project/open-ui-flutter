@@ -29,6 +29,17 @@ class KaamosThemeData with Diagnosticable {
     required this.hairline,
     required this.hairlineStrong,
     required this.focusRing,
+    required this.surfaceCard,
+    required this.mute,
+    required this.onDarkMute,
+    required this.accent,
+    required this.accentSoft,
+    required this.danger,
+    required this.keyBgStart,
+    required this.keyBgEnd,
+    required this.scrim,
+    required this.cursor,
+    required this.selection,
     required this.textStyle,
     required this.buttonTextStyle,
   });
@@ -48,6 +59,18 @@ class KaamosThemeData with Diagnosticable {
     hairline: KaamosColors.hairline,
     hairlineStrong: KaamosColors.hairlineStrong,
     focusRing: KaamosColors.onDarkMute,
+    surfaceCard: KaamosColors.surfaceCard,
+    mute: KaamosColors.mute,
+    onDarkMute: KaamosColors.onDarkMute,
+    accent: KaamosColors.accentBlue,
+    accentSoft: KaamosColors.accentBlueSoft,
+    danger: KaamosColors.accentRed,
+    keyBgStart: KaamosColors.keyBgStart,
+    keyBgEnd: KaamosColors.keyBgEnd,
+    scrim: // canvas (#07080a) con alfa 0xB3 = 70%, come bg-canvas/70 sul web.
+        Color(0xB307080A),
+    cursor: KaamosColors.primary,
+    selection: Color(0x3DFFFFFF),
     textStyle: KaamosTypography.bodyMd,
     buttonTextStyle: KaamosTypography.buttonMd,
   );
@@ -91,6 +114,39 @@ class KaamosThemeData with Diagnosticable {
   /// Anello del focus da tastiera.
   final Color focusRing;
 
+  /// Superfici in cima alla scala (riga attiva, keycap, app icon tile).
+  final Color surfaceCard;
+
+  /// Testo secondario (descrizioni, gruppi, icone nei campi).
+  final Color mute;
+
+  /// Testo secondario sopra superfici scure (badge pro, link di navigazione).
+  final Color onDarkMute;
+
+  /// Accento informativo (badge info). Da usare raramente.
+  final Color accent;
+
+  /// Sfondo morbido di [accent].
+  final Color accentSoft;
+
+  /// Errori (bordo dei campi non validi).
+  final Color danger;
+
+  /// Inizio del gradiente dei keycap (in alto).
+  final Color keyBgStart;
+
+  /// Fine del gradiente dei keycap (in basso).
+  final Color keyBgEnd;
+
+  /// Velo dietro dialog e cassetti: canvas al 70%.
+  final Color scrim;
+
+  /// Cursore dei campi di testo.
+  final Color cursor;
+
+  /// Sfondo del testo selezionato (bianco al 24%).
+  final Color selection;
+
   /// Stile del testo di default (body-md, colore [body]).
   final TextStyle textStyle;
 
@@ -112,6 +168,17 @@ class KaamosThemeData with Diagnosticable {
     Color? hairline,
     Color? hairlineStrong,
     Color? focusRing,
+    Color? surfaceCard,
+    Color? mute,
+    Color? onDarkMute,
+    Color? accent,
+    Color? accentSoft,
+    Color? danger,
+    Color? keyBgStart,
+    Color? keyBgEnd,
+    Color? scrim,
+    Color? cursor,
+    Color? selection,
     TextStyle? textStyle,
     TextStyle? buttonTextStyle,
   }) {
@@ -129,6 +196,17 @@ class KaamosThemeData with Diagnosticable {
       hairline: hairline ?? this.hairline,
       hairlineStrong: hairlineStrong ?? this.hairlineStrong,
       focusRing: focusRing ?? this.focusRing,
+      surfaceCard: surfaceCard ?? this.surfaceCard,
+      mute: mute ?? this.mute,
+      onDarkMute: onDarkMute ?? this.onDarkMute,
+      accent: accent ?? this.accent,
+      accentSoft: accentSoft ?? this.accentSoft,
+      danger: danger ?? this.danger,
+      keyBgStart: keyBgStart ?? this.keyBgStart,
+      keyBgEnd: keyBgEnd ?? this.keyBgEnd,
+      scrim: scrim ?? this.scrim,
+      cursor: cursor ?? this.cursor,
+      selection: selection ?? this.selection,
       textStyle: textStyle ?? this.textStyle,
       buttonTextStyle: buttonTextStyle ?? this.buttonTextStyle,
     );
@@ -153,12 +231,23 @@ class KaamosThemeData with Diagnosticable {
         other.hairline == hairline &&
         other.hairlineStrong == hairlineStrong &&
         other.focusRing == focusRing &&
+        other.surfaceCard == surfaceCard &&
+        other.mute == mute &&
+        other.onDarkMute == onDarkMute &&
+        other.accent == accent &&
+        other.accentSoft == accentSoft &&
+        other.danger == danger &&
+        other.keyBgStart == keyBgStart &&
+        other.keyBgEnd == keyBgEnd &&
+        other.scrim == scrim &&
+        other.cursor == cursor &&
+        other.selection == selection &&
         other.textStyle == textStyle &&
         other.buttonTextStyle == buttonTextStyle;
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
         canvas,
         surface,
         surfaceElevated,
@@ -172,9 +261,20 @@ class KaamosThemeData with Diagnosticable {
         hairline,
         hairlineStrong,
         focusRing,
+        surfaceCard,
+        mute,
+        onDarkMute,
+        accent,
+        accentSoft,
+        danger,
+        keyBgStart,
+        keyBgEnd,
+        scrim,
+        cursor,
+        selection,
         textStyle,
         buttonTextStyle,
-      );
+      ]);
 }
 
 /// Mette un [KaamosThemeData] a disposizione di tutti i widget sotto di lui.

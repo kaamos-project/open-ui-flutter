@@ -29,6 +29,8 @@ class KaamosPressable extends StatefulWidget {
     this.autofocus = false,
     this.semanticLabel,
     this.isButton = true,
+    this.isLink = false,
+    this.canRequestFocus = true,
   });
 
   /// Chiamato al clic, al tocco, o con Invio/Spazio quando ha il focus.
@@ -49,6 +51,13 @@ class KaamosPressable extends StatefulWidget {
 
   /// Annunciato come "pulsante" agli screen reader.
   final bool isButton;
+
+  /// Annunciato come "link" agli screen reader.
+  final bool isLink;
+
+  /// `false` per controlli che non devono mai prendere il focus (es. le
+  /// righe di una lista dove il focus resta sul campo di ricerca).
+  final bool canRequestFocus;
 
   @override
   State<KaamosPressable> createState() => _KaamosPressableState();
@@ -106,28 +115,33 @@ class _KaamosPressableState extends State<KaamosPressable> {
   Widget build(BuildContext context) {
     return Semantics(
       button: widget.isButton,
+      link: widget.isLink,
       enabled: _enabled,
       label: widget.semanticLabel,
       // Con un'etichetta esplicita, il testo dentro non va letto due volte.
       excludeSemantics: widget.semanticLabel != null,
-      child: FocusableActionDetector(
-        enabled: _enabled,
-        focusNode: widget.focusNode,
-        autofocus: widget.autofocus,
-        actions: _actions,
-        onShowFocusHighlight: _setFocusVisible,
-        onShowHoverHighlight: _setHovered,
-        mouseCursor:
-            _enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
-        child: GestureDetector(
-          // opaque: anche le parti trasparenti (bottone secondary) ricevono
-          // il clic, non solo i pixel del testo.
-          behavior: HitTestBehavior.opaque,
-          onTapDown: _enabled ? (_) => _setPressed(true) : null,
-          onTapUp: _enabled ? (_) => _setPressed(false) : null,
-          onTapCancel: _enabled ? () => _setPressed(false) : null,
-          onTap: widget.onPressed,
-          child: widget.builder(context, _states),
+      child: ExcludeFocus(
+        excluding: !widget.canRequestFocus,
+        child: FocusableActionDetector(
+          enabled: _enabled,
+          focusNode: widget.focusNode,
+          autofocus: widget.autofocus,
+          actions: _actions,
+          onShowFocusHighlight: _setFocusVisible,
+          onShowHoverHighlight: _setHovered,
+          mouseCursor: _enabled
+              ? SystemMouseCursors.click
+              : SystemMouseCursors.forbidden,
+          child: GestureDetector(
+            // opaque: anche le parti trasparenti (bottone secondary) ricevono
+            // il clic, non solo i pixel del testo.
+            behavior: HitTestBehavior.opaque,
+            onTapDown: _enabled ? (_) => _setPressed(true) : null,
+            onTapUp: _enabled ? (_) => _setPressed(false) : null,
+            onTapCancel: _enabled ? () => _setPressed(false) : null,
+            onTap: widget.onPressed,
+            child: widget.builder(context, _states),
+          ),
         ),
       ),
     );

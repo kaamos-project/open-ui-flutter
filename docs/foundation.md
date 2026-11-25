@@ -64,3 +64,28 @@ KaamosPressable(
 ## `KaamosFocusRing`
 
 L'anello del focus (CSS `outline: 2px` + `outline-offset: 2px`). È disegnato fuori dal widget senza cambiarne la misura, quindi quando compare non sposta il layout.
+
+## Icone: `KaamosIcon`
+
+```dart
+const KaamosIcon(KaamosIcons.search)
+KaamosIcon(KaamosIcons.close, size: 20, semanticLabel: 'Chiudi')
+```
+
+Disponibili: `search`, `check`, `minus`, `chevronDown`, `chevronRight`, `close`, `menu`, `arrowRight`. Colore e misura arrivano da `IconTheme` (dentro un bottone prendono il colore del testo). Senza `semanticLabel` l'icona è decorativa e gli screen reader la saltano.
+
+**Perché disegnate a mano con `CustomPaint`?** Per ora ne servono poche: zero dipendenze e zero parsing a runtime. Quando saranno decine passeremo a un font di icone generato dalla repo dei token.
+
+## Scroll: `KaamosScrollBehavior`
+
+`KaamosApp` la applica a tutta l'app: lo scroll si ferma al bordo su ogni piattaforma (niente rimbalzo iOS, niente bagliore Android) e la barra di scorrimento è sottile, nel colore `hairlineStrong`.
+
+## Overlay ancorati: `KaamosAnchoredOverlay`
+
+La base di popover, menu e select. Usa `OverlayPortal` (il pannello è disegnato sopra tutto ma resta nell'albero di chi lo apre) e `CompositedTransformFollower` (segue l'ancora quando la pagina scorre). Si apre sotto l'ancora, o sopra se sotto non c'è spazio; allineato a sinistra, o a destra se non ci sta. Un clic fuori lo chiude.
+
+L'ancora riceve un `KaamosOverlayHandle` con `show()`, `hide()`, `toggle()` e `isShowing`.
+
+## Liste: `KaamosPopoverSurface` e `KaamosListRow`
+
+La superficie (`surface`, bordo `hairline`, raggio 10px) e la riga (command-palette-row) condivise da menu, select, command palette e dal menu copia/incolla. Usale per costruire liste tue con lo stesso aspetto.

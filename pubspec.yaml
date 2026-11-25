@@ -1,4 +1,4 @@
-name: kaamos_ui
+name: kaamos_project_ui
 description: Kaamos design system for Flutter. Custom widgets on top of the widgets layer only (no Material, no Cupertino), identical on every platform.
 version: 0.1.0-dev
 repository: https://github.com/kaamos-project/open-ui-flutter
