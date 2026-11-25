@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   # La libreria dalla cartella sopra: ogni modifica si vede subito, senza tag.
-  kaamos_ui:
+  kaamos_project_ui:
     path: ..
 
 dev_dependencies:

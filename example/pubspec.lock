@@ -76,7 +76,7 @@ packages:
       url: "https://github.com/kaamos-project/open-design-tokens"
     source: git
     version: "0.1.0"
-  kaamos_ui:
+  kaamos_project_ui:
     dependency: "direct main"
     description:
       path: ".."

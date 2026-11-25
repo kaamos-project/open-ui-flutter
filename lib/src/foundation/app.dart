@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import 'scroll.dart';
 import 'theme.dart';
 
 /// Radice di un'app Kaamos: l'equivalente di `MaterialApp`, ma senza Material.
@@ -56,9 +57,9 @@ class KaamosApp extends StatelessWidget {
             reverseTransitionDuration: Duration.zero,
           );
         },
-        builder: (context, child) => ColoredBox(
-          color: theme.canvas,
-          child: child,
+        builder: (context, child) => ScrollConfiguration(
+          behavior: const KaamosScrollBehavior(),
+          child: ColoredBox(color: theme.canvas, child: child),
         ),
       ),
     );
