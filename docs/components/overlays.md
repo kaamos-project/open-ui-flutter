@@ -1,18 +1,22 @@
-# Overlay: popover, menu, dialog
+[Home](../README.md) › [Components](../README.md#components) › Overlays
 
-| Componente | Quando usarlo                                                  | Come è fatto                     |
-| ---------- | -------------------------------------------------------------- | -------------------------------- |
-| Popover    | Informazioni o contenuto leggero vicino a un bottone           | `OverlayPortal` ancorato         |
-| Menu       | Lista di azioni che si apre da un bottone                      | `OverlayPortal` ancorato         |
-| Dialog     | Serve una risposta prima di continuare ("Eliminare il file?")  | Route del Navigator              |
+# Overlays: popover, menu, dialog
 
-**Perché due tecniche?** Il dialog deve bloccare la pagina: una route ci dà gratis il tasto indietro di Android, la barriera che ferma i clic e il focus intrappolato dentro. Popover e menu invece sono leggeri: restano nell'albero di chi li apre (stesso tema, e spariscono se il bottone sparisce) e seguono il bottone quando la pagina scorre.
+| Component | When to use it                                                   | How it's built           |
+| --------- | ---------------------------------------------------------------- | ------------------------ |
+| Popover   | Information or light content next to a button                    | anchored `OverlayPortal` |
+| Menu      | A list of actions that opens from a button                       | anchored `OverlayPortal` |
+| Dialog    | An answer is needed before going on ("Delete the file?")         | Navigator route          |
+
+**Why two techniques?** The dialog must block the page: a route gives us Android's back button, the barrier that stops clicks and the focus trapped inside, for free. Popover and menu are light instead: they stay in the tree of whoever opens them (same theme, and they disappear if the button disappears) and follow the button when the page scrolls.
+
+![Open menu](../../test/components/overlay/goldens/menu_open.png)
 
 ## Popover · `KaamosPopover`
 
 ```dart
 KaamosPopover(
-  content: const Text('Testo di aiuto vicino al bottone.'),
+  content: const Text('Help text next to the button.'),
   builder: (context, overlay) => KaamosButton(
     variant: KaamosButtonVariant.tertiary,
     onPressed: overlay.toggle,
@@ -21,30 +25,30 @@ KaamosPopover(
 )
 ```
 
-Si chiude con il bottone, cliccando fuori o con Esc. Largo al massimo 320px, padding 16px.
+It closes with the button, a click outside or Esc. At most 320px wide, 16px padding.
 
 ## Menu · `KaamosMenu`
 
 ```dart
 KaamosMenu(
-  semanticLabel: 'Azioni sul file',
+  semanticLabel: 'File actions',
   items: [
-    KaamosMenuItem(label: 'Rinomina', onPressed: rename),
-    KaamosMenuItem(label: 'Duplica', onPressed: duplicate, trailing: const KaamosKeycap('⌘ D')),
-    const KaamosMenuItem(label: 'Sposta', onPressed: null), // disabilitata
+    KaamosMenuItem(label: 'Rename', onPressed: rename),
+    KaamosMenuItem(label: 'Duplicate', onPressed: duplicate, trailing: const KaamosKeycap('⌘ D')),
+    const KaamosMenuItem(label: 'Move', onPressed: null), // disabled
     const KaamosMenuDivider(),
-    KaamosMenuItem(label: 'Elimina', onPressed: delete),
+    KaamosMenuItem(label: 'Delete', onPressed: delete),
   ],
   builder: (context, overlay) => KaamosButton(
     variant: KaamosButtonVariant.tertiary,
     onPressed: overlay.toggle,
-    child: const Text('Azioni'),
+    child: const Text('Actions'),
   ),
 )
 ```
 
-- **Tastiera**: all'apertura il focus va sulla prima voce. ↑ ↓ si muovono girando in tondo e saltando le disabilitate, Home e Fine vanno a inizio e fine, Invio sceglie, Esc chiude e riporta il focus al bottone, Tab chiude e prosegue.
-- Scegliendo una voce il menu si chiude e poi chiama `onPressed`.
+- **Keyboard**: on open, focus goes to the first item. ↑ ↓ move, wrapping around and skipping disabled items; Home and End go to the start and the end; Enter chooses; Esc closes and returns focus to the button; Tab closes and moves on.
+- Choosing an item closes the menu and then calls `onPressed`.
 
 ## Dialog · `showKaamosDialog` + `KaamosDialog`
 
@@ -52,17 +56,17 @@ KaamosMenu(
 final ok = await showKaamosDialog<bool>(
   context: context,
   builder: (context) => KaamosDialog(
-    title: 'Eliminare il file?',
-    content: const Text('Potrai recuperarlo dal cestino per 30 giorni.'),
+    title: 'Delete the file?',
+    content: const Text('You can restore it from the trash for 30 days.'),
     actions: [
       KaamosButton(
         variant: KaamosButtonVariant.secondary,
         onPressed: () => Navigator.pop(context, false),
-        child: const Text('Annulla'),
+        child: const Text('Cancel'),
       ),
       KaamosButton(
         onPressed: () => Navigator.pop(context, true),
-        child: const Text('Elimina'),
+        child: const Text('Delete'),
       ),
     ],
   ),
@@ -70,7 +74,12 @@ final ok = await showKaamosDialog<bool>(
 if (ok ?? false) deleteFile();
 ```
 
-- `await` restituisce quello che passi a `Navigator.pop`, come `dialog.returnValue` sul web. Esc, il tasto indietro o un clic sul velo restituiscono `null` (`barrierDismissible: false` per impedirlo).
-- Il titolo è anche il nome del dialog per gli screen reader.
-- **Un solo bottone primary**: l'azione principale.
-- Largo al massimo 448px, 16px dai bordi dello schermo. Il velo è `canvas` al 70%.
+- `await` returns what you pass to `Navigator.pop`, like `dialog.returnValue` on the web. Esc, the back button or a click on the scrim return `null` (`barrierDismissible: false` prevents it).
+- The title is also the dialog's name for screen readers.
+- **Only one primary button**: the main action.
+- At most 448px wide, 16px from the screen edges. The scrim is `canvas` at 70%.
+
+## See also
+
+- [Foundation](../foundation.md#anchored-overlays-kaamosanchoredoverlay)
+- [Command palette](command-palette.md)

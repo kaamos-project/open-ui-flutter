@@ -1,8 +1,12 @@
-# Navigazione: tab, pill tab, barra principale
+[Home](../README.md) › [Components](../README.md#components) › Navigation
 
-## Pill tab o tab?
+# Navigation: tabs, pill tabs, main bar
 
-Usa le **pill tab** quando i bottoni **filtrano la stessa lista** ("All", "Most Popular"). Usa **`KaamosTabs`** quando ogni tab mostra un **pannello diverso**. Hanno lo stesso aspetto, ma per uno screen reader sono un interruttore "premuto" e una tab "selezionata".
+![Navigation](../../test/components/navigation/goldens/navigation.png)
+
+## Pill tabs or tabs?
+
+Use **pill tabs** when the buttons **filter the same list** ("All", "Most Popular"). Use **`KaamosTabs`** when each tab shows a **different panel**. They look the same, but for a screen reader one is a "pressed" toggle and the other a "selected" tab.
 
 ## Pill tab · `KaamosPillTab`
 
@@ -15,22 +19,22 @@ for (final f in filters)
   ),
 ```
 
-## Tab · `KaamosTabs`
+## Tabs · `KaamosTabs`
 
 ```dart
 KaamosTabs(
-  semanticLabel: 'Impostazioni account',
-  labels: const ['Generale', 'Account', 'Privacy'],
+  semanticLabel: 'Account settings',
+  labels: const ['General', 'Account', 'Privacy'],
   panels: const [GeneralPanel(), AccountPanel(), PrivacyPanel()],
   onChanged: (i) => print('tab $i'),
 )
 ```
 
-- **Tastiera**: Tab entra nella tab attiva, il Tab successivo va nel pannello. ← → cambiano tab girando in tondo (attivazione immediata), Home e Fine vanno alla prima e all'ultima.
-- **Trade-off**: si costruisce solo il pannello visibile, più leggero di un `IndexedStack`. Cambiando tab, però, lo stato del pannello lasciato (scroll, testo non salvato) si perde: se ti serve, tienilo fuori dal pannello.
-- Su schermi stretti le tab scorrono in orizzontale.
+- **Keyboard**: Tab enters the active tab, the next Tab goes into the panel. ← → change tab wrapping around (immediate activation), Home and End go to the first and the last.
+- **Trade-off**: only the visible panel is built, lighter than an `IndexedStack`. When you change tab, though, the state of the panel you left (scroll, unsaved text) is lost: if you need it, keep it outside the panel.
+- On narrow screens the tabs scroll horizontally.
 
-## Barra principale · `KaamosNavBar`
+## Main bar · `KaamosNavBar`
 
 ```dart
 KaamosNavBar(
@@ -39,12 +43,17 @@ KaamosNavBar(
     KaamosNavItem(label: 'Home', onPressed: goHome, current: true),
     KaamosNavItem(label: 'Mail', onPressed: goMail),
   ],
-  secondaryActions: [KaamosLink(label: 'Accedi', onPressed: login)],
+  secondaryActions: [KaamosLink(label: 'Sign in', onPressed: login)],
   actions: [KaamosButton(onPressed: download, child: const Text('Download'))],
 )
 ```
 
-- Alta 56px, bordo `hairline` in basso. Mettila in cima a una `Column` per tenerla sempre visibile.
-- **Sotto i 768px** (`kaamosNavBreakpoint`): il logo va al centro, compare il bottone hamburger, i link finiscono in un cassetto che entra da sinistra e le `secondaryActions` spariscono.
-- Il cassetto è una route (`showKaamosNavDrawer`): si chiude con il tasto indietro, un clic sul velo o Esc.
-- La larghezza si legge con `MediaQuery.sizeOf`: la barra si ricostruisce solo quando cambia la misura della finestra.
+- 56px tall, `hairline` border at the bottom. Put it at the top of a `Column` to keep it always visible.
+- **Below 768px** (`kaamosNavBreakpoint`): the logo moves to the centre, the hamburger button appears, the links go into a drawer that slides in from the left, and the `secondaryActions` disappear.
+- The drawer is a route (`showKaamosNavDrawer`): it closes with the back button, a click on the scrim or Esc.
+- The width is read with `MediaQuery.sizeOf`: the bar rebuilds only when the window size changes.
+
+## See also
+
+- [Button](button.md)
+- [Static components](static.md#link--kaamoslink)

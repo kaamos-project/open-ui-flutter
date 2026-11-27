@@ -1,37 +1,41 @@
-# Fondamenta
+[Home](README.md) › Foundation
+
+# Foundation
+
+The building blocks every component uses. They live in `lib/src/foundation/`.
 
 ## `KaamosApp`
 
-La radice dell'app, al posto di `MaterialApp`. Sotto usa `WidgetsApp` (navigazione, localizzazioni di base, scorciatoie di sistema) e aggiunge:
+The app root, instead of `MaterialApp`. Under the hood it uses `WidgetsApp` (navigation, basic localizations, system shortcuts) and adds:
 
-- il tema (`KaamosTheme`)
-- lo stile di testo di default (body-md, colore `body`)
-- lo sfondo `canvas`
+- the theme (`KaamosTheme`)
+- the default text style (body-md, colour `body`)
+- the `canvas` background
 
 ```dart
 runApp(const KaamosApp(title: 'Kaamos Bookmarks', home: HomePage()));
 ```
 
-| Parametro                    | Default               | Note                                              |
-| ---------------------------- | --------------------- | ------------------------------------------------- |
-| `home`                       | obbligatorio          | la prima schermata                                |
-| `title`                      | `''`                  | titolo della finestra o della scheda del browser  |
-| `theme`                      | `KaamosThemeData.dark`| unico tema per ora                                |
-| `navigatorKey`               | `null`                |                                                   |
-| `debugShowCheckedModeBanner` | `true`                |                                                   |
+| Parameter                    | Default                | Notes                                         |
+| ---------------------------- | ---------------------- | --------------------------------------------- |
+| `home`                       | required               | the first screen                              |
+| `title`                      | `''`                   | title of the window or browser tab            |
+| `theme`                      | `KaamosThemeData.dark` | the only theme for now                        |
+| `navigatorKey`               | `null`                 |                                               |
+| `debugShowCheckedModeBanner` | `true`                 |                                               |
 
-Le pagine cambiano senza animazione: le transizioni Kaamos arriveranno con un componente dedicato.
+Pages change without animation: Kaamos transitions will come with a dedicated component.
 
-## Tema: `KaamosTheme` e `KaamosThemeData`
+## Theme: `KaamosTheme` and `KaamosThemeData`
 
 ```dart
 final theme = KaamosTheme.of(context);
-Text('Titolo', style: KaamosTypography.headingLg.copyWith(color: theme.ink));
+Text('Title', style: KaamosTypography.headingLg.copyWith(color: theme.ink));
 ```
 
-- `KaamosTheme.of(context)` restituisce il tema più vicino, o `KaamosThemeData.dark` se non c'è (comodo nei test).
-- I campi sono **semantici** (`primary`, `onDark`, `focusRing`...), non una copia della palette. Per i colori senza un ruolo usa direttamente `KaamosColors`.
-- Per cambiare un valore in una parte dell'app:
+- `KaamosTheme.of(context)` returns the nearest theme, or `KaamosThemeData.dark` if there is none (handy in tests).
+- The fields are **semantic** (`primary`, `onDark`, `focusRing`…), not a copy of the palette. For colours without a role use `KaamosColors` directly.
+- To change a value in part of the app:
 
 ```dart
 KaamosTheme(
@@ -40,11 +44,11 @@ KaamosTheme(
 )
 ```
 
-**Perché non `ThemeExtension`?** Vive dentro `ThemeData` di Material, e questa libreria non dipende da Material.
+**Why not `ThemeExtension`?** It lives inside Material's `ThemeData`, and this library doesn't depend on Material.
 
 ## `KaamosPressable`
 
-Il comportamento comune a tutti i controlli cliccabili: mouse, tocco, Invio/Spazio, focus, semantica per gli screen reader. Non disegna niente: passa al `builder` gli stati attivi (`WidgetState.hovered`, `pressed`, `focused`, `disabled`).
+The behaviour shared by every clickable control: mouse, touch, Enter/Space, focus, semantics for screen readers. It draws nothing: it passes the active states (`WidgetState.hovered`, `pressed`, `focused`, `disabled`) to the `builder`.
 
 ```dart
 KaamosPressable(
@@ -53,39 +57,44 @@ KaamosPressable(
     color: states.contains(WidgetState.pressed)
         ? KaamosColors.surfaceCard
         : KaamosColors.surface,
-    child: const Text('Voce'),
+    child: const Text('Item'),
   ),
 )
 ```
 
-- `onPressed: null` = disabilitato (cursore "vietato", niente focus).
-- `focused` compare solo usando la tastiera, come `:focus-visible` sul web.
+- `onPressed: null` = disabled ("not allowed" cursor, no focus).
+- `focused` only appears when using the keyboard, like `:focus-visible` on the web.
 
 ## `KaamosFocusRing`
 
-L'anello del focus (CSS `outline: 2px` + `outline-offset: 2px`). È disegnato fuori dal widget senza cambiarne la misura, quindi quando compare non sposta il layout.
+The focus ring (CSS `outline: 2px` + `outline-offset: 2px`). It is painted outside the widget without changing its size, so it doesn't shift the layout when it appears.
 
-## Icone: `KaamosIcon`
+## Icons: `KaamosIcon`
 
 ```dart
 const KaamosIcon(KaamosIcons.search)
-KaamosIcon(KaamosIcons.close, size: 20, semanticLabel: 'Chiudi')
+KaamosIcon(KaamosIcons.close, size: 20, semanticLabel: 'Close')
 ```
 
-Disponibili: `search`, `check`, `minus`, `chevronDown`, `chevronRight`, `close`, `menu`, `arrowRight`. Colore e misura arrivano da `IconTheme` (dentro un bottone prendono il colore del testo). Senza `semanticLabel` l'icona è decorativa e gli screen reader la saltano.
+Available: `search`, `check`, `minus`, `chevronDown`, `chevronRight`, `close`, `menu`, `arrowRight`. Colour and size come from `IconTheme` (inside a button they take the text colour). Without `semanticLabel` the icon is decorative and screen readers skip it.
 
-**Perché disegnate a mano con `CustomPaint`?** Per ora ne servono poche: zero dipendenze e zero parsing a runtime. Quando saranno decine passeremo a un font di icone generato dalla repo dei token.
+**Why hand-drawn with `CustomPaint`?** Only a few are needed for now: zero dependencies and zero parsing at runtime. When there are dozens we'll move to an icon font generated by the tokens repo.
 
 ## Scroll: `KaamosScrollBehavior`
 
-`KaamosApp` la applica a tutta l'app: lo scroll si ferma al bordo su ogni piattaforma (niente rimbalzo iOS, niente bagliore Android) e la barra di scorrimento è sottile, nel colore `hairlineStrong`.
+`KaamosApp` applies it to the whole app: scrolling stops at the edge on every platform (no iOS bounce, no Android glow) and the scrollbar is thin, in the `hairlineStrong` colour.
 
-## Overlay ancorati: `KaamosAnchoredOverlay`
+## Anchored overlays: `KaamosAnchoredOverlay`
 
-La base di popover, menu e select. Usa `OverlayPortal` (il pannello è disegnato sopra tutto ma resta nell'albero di chi lo apre) e `CompositedTransformFollower` (segue l'ancora quando la pagina scorre). Si apre sotto l'ancora, o sopra se sotto non c'è spazio; allineato a sinistra, o a destra se non ci sta. Un clic fuori lo chiude.
+The base of popover, menu and select. It uses `OverlayPortal` (the panel is painted above everything but stays in the tree of whoever opens it) and `CompositedTransformFollower` (it follows the anchor when the page scrolls). It opens below the anchor, or above if there is no room below; aligned left, or right if it doesn't fit. A click outside closes it.
 
-L'ancora riceve un `KaamosOverlayHandle` con `show()`, `hide()`, `toggle()` e `isShowing`.
+The anchor gets a `KaamosOverlayHandle` with `show()`, `hide()`, `toggle()` and `isShowing`.
 
-## Liste: `KaamosPopoverSurface` e `KaamosListRow`
+## Lists: `KaamosPopoverSurface` and `KaamosListRow`
 
-La superficie (`surface`, bordo `hairline`, raggio 10px) e la riga (command-palette-row) condivise da menu, select, command palette e dal menu copia/incolla. Usale per costruire liste tue con lo stesso aspetto.
+The surface (`surface`, `hairline` border, 10px radius) and the row (command-palette-row) shared by menu, select, command palette and the copy/paste menu. Use them to build your own lists with the same look.
+
+## See also
+
+- [Architecture](architecture.md)
+- [Overlays](components/overlays.md)

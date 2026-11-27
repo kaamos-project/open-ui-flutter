@@ -1,6 +1,10 @@
-# Componenti statici
+[Home](../README.md) › [Components](../README.md#components) › Static components
 
-Widget senza comportamento (o quasi): solo aspetto. Equivalgono alle classi statiche di open-ui-web.
+# Static components
+
+Widgets with no behaviour (or almost): only look. They are the equivalent of open-ui-web's static classes.
+
+![Static components](../../test/components/static/goldens/static.png)
 
 ## Badge · `KaamosBadge`
 
@@ -9,10 +13,10 @@ const KaamosBadge('Pro')
 const KaamosBadge('Beta', variant: KaamosBadgeVariant.info)
 ```
 
-| Variante | Uso                                                          |
-| -------- | ------------------------------------------------------------ |
-| `pro`    | Piano o livello: "Pro", "Pro+", "Free"                       |
-| `info`   | Etichetta rara: "New", "Beta". Usa l'accento blu: tienila rara |
+| Variant | Use                                                           |
+| ------- | ------------------------------------------------------------- |
+| `pro`   | Plan or tier: "Pro", "Pro+", "Free"                           |
+| `info`  | Rare label: "New", "Beta". Uses the blue accent: keep it rare |
 
 ## Keycap · `KaamosKeycap`
 
@@ -23,7 +27,7 @@ const Row(spacing: 4, children: [
 ])
 ```
 
-Alto 20px, largo almeno 20px. Dai un `semanticLabel` ai simboli: "⌘" non dice niente a uno screen reader.
+20px tall, at least 20px wide. Give symbols a `semanticLabel`: "⌘" means nothing to a screen reader.
 
 ## App icon tile · `KaamosAppIconTile`
 
@@ -32,22 +36,27 @@ KaamosAppIconTile(child: Image.asset('assets/mail.png'))
 KaamosAppIconTile(size: KaamosAppIconTileSize.large, child: ...)
 ```
 
-48×48 (`medium`) o 64×64 (`large`). L'icona riempie il riquadro, tagliata agli angoli.
+48×48 (`medium`) or 64×64 (`large`). The icon fills the tile, clipped at the corners.
 
 ## Card · `KaamosCard`
 
 ```dart
-KaamosCard(child: ...)                                     // feature-card-dark, pricing-tier-card
-KaamosCard(variant: KaamosCardVariant.elevated, child: ...) // feature-card-elevated, piano in evidenza
+KaamosCard(child: ...)                                          // feature-card-dark, pricing-tier-card
+KaamosCard(variant: KaamosCardVariant.elevated, child: ...)     // feature-card-elevated, featured plan
 KaamosCard(variant: KaamosCardVariant.compact, child: Row(...)) // store-extension-card
 ```
 
-Una sola cornice, cambia il contenuto. Niente ombre: la profondità viene dalla scala delle superfici e dal bordo `hairline`.
+One frame, the content changes. No shadows: depth comes from the surface scale and the `hairline` border.
 
 ## Link · `KaamosLink`
 
 ```dart
-KaamosLink(label: 'Leggi la documentazione', onPressed: openDocs)
+KaamosLink(label: 'Read the documentation', onPressed: openDocs)
 ```
 
-Testo `onDark` in link-md, sottolineato al passaggio del mouse. Per gli screen reader è un "link". Flutter non conosce gli URL: cosa succede al clic lo decide `onPressed` (una pagina della tua app, o il browser con un pacchetto come `url_launcher`).
+`onDark` text in link-md, underlined on mouse hover. For screen readers it is a "link". Flutter doesn't know about URLs: what happens on click is decided by `onPressed` (a page of your app, or the browser with a package like `url_launcher`).
+
+## See also
+
+- [Button](button.md)
+- [Command palette](command-palette.md): keycaps in commands
