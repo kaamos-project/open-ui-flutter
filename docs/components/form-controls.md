@@ -1,4 +1,8 @@
-# Controlli dei form
+[Home](../README.md) › [Components](../README.md#components) › Form controls
+
+# Form controls
+
+![Form controls](../../test/components/form/goldens/form.png)
 
 ## Text field · `KaamosTextField`
 
@@ -7,7 +11,7 @@ final email = TextEditingController();
 
 KaamosTextField(
   controller: email,
-  placeholder: 'tu@esempio.org',
+  placeholder: 'you@example.org',
   semanticLabel: 'Email',
   keyboardType: TextInputType.emailAddress,
   autofillHints: const [AutofillHints.email],
@@ -15,39 +19,39 @@ KaamosTextField(
 )
 ```
 
-| Parametro                         | Note                                                    |
+| Parameter                         | Notes                                                   |
 | --------------------------------- | ------------------------------------------------------- |
-| `controller`                      | Il testo. Se manca il campo ne crea uno suo             |
-| `focusNode`                       | Per dare o togliere il focus da codice                  |
-| `placeholder`                     | Sparisce quando scrivi: **non** è un'etichetta          |
-| `semanticLabel`                   | Etichetta per gli screen reader                         |
-| `enabled`, `readOnly`             | Disabilitato (grigio, niente focus) o solo lettura      |
+| `controller`                      | The text. If missing, the field creates its own         |
+| `focusNode`                       | To give or take focus from code                         |
+| `placeholder`                     | Disappears when you type: it is **not** a label         |
+| `semanticLabel`                   | Label for screen readers                                |
+| `enabled`, `readOnly`             | Disabled (grey, no focus) or read-only                  |
 | `obscureText`                     | Password                                                |
-| `invalid`                         | Bordo rosso                                             |
-| `keyboardType`, `textInputAction` | Tastiera e tasto azione su mobile                       |
-| `onChanged`, `onSubmitted`        | A ogni modifica, e quando premi Invio                   |
-| `maxLength`, `inputFormatters`    | Filtri sul testo                                        |
-| `autofillHints`                   | Autofill del sistema                                    |
+| `invalid`                         | Red border                                              |
+| `keyboardType`, `textInputAction` | Keyboard and action key on mobile                       |
+| `onChanged`, `onSubmitted`        | On every change, and when you press Enter               |
+| `maxLength`, `inputFormatters`    | Filters on the text                                     |
+| `autofillHints`                   | System autofill                                         |
 
-Alto 36px, sfondo `surfaceElevated`, bordo `hairline` che al focus diventa `hairlineStrong`.
+36px tall, `surfaceElevated` background, `hairline` border that becomes `hairlineStrong` on focus.
 
-**Come è fatto**: sotto c'è `EditableText`, il motore di testo di Flutter (cursore, tastiera di sistema, emoji, scorciatoie, accessibilità). I gesti (tap, doppio tap, trascinare per selezionare) arrivano da `TextSelectionGestureDetectorBuilder`. Le maniglie di selezione su touch e il menu Taglia/Copia/Incolla sono disegnati da noi, nello stile dei menu Kaamos. Le etichette del menu vengono da `WidgetsLocalizations`: aggiungi `flutter_localizations` alla tua app per averle tradotte.
+**How it's built**: underneath is `EditableText`, Flutter's text engine (cursor, system keyboard, emoji, shortcuts, accessibility). Gestures (tap, double tap, drag to select) come from `TextSelectionGestureDetectorBuilder`. The touch selection handles and the Cut/Copy/Paste menu are drawn by us, in the style of Kaamos menus. The menu labels come from `WidgetsLocalizations`: add `flutter_localizations` to your app to get them translated.
 
-**Eccezione sul web**: resta il menu del browser (tasto destro), perché il nostro "Incolla" dovrebbe chiedere il permesso di leggere gli appunti.
+**Exception on the web**: the browser's menu (right click) stays, because our "Paste" would have to ask for permission to read the clipboard.
 
 ## Search bar · `KaamosSearchBar`
 
 ```dart
 KaamosSearchBar(
   placeholder: 'Search...',
-  semanticLabel: 'Cerca estensioni',
+  semanticLabel: 'Search extensions',
   onChanged: filterList,
   onSubmitted: search,
   trailing: const KaamosKeycap('/'),
 )
 ```
 
-Lente a sinistra, alta 44px, bordo trasparente che al focus diventa `hairlineStrong`. Esc svuota il campo, su mobile la tastiera mostra "Cerca". Dai sempre un `semanticLabel`.
+Magnifying glass on the left, 44px tall, transparent border that becomes `hairlineStrong` on focus. Esc clears the field; on mobile the keyboard shows "Search". Always set a `semanticLabel`.
 
 ## Checkbox · `KaamosCheckbox`
 
@@ -55,13 +59,13 @@ Lente a sinistra, alta 44px, bordo trasparente che al focus diventa `hairlineStr
 KaamosCheckbox(
   value: newsletter,
   onChanged: (v) => setState(() => newsletter = v!),
-  label: const Text('Iscrivimi alla newsletter'),
+  label: const Text('Subscribe to the newsletter'),
 )
 ```
 
-- `onChanged: null` = disabilitata.
-- `tristate: true` permette `value: null` ("in parte"). Il giro è false → true → null → false.
-- La casella è 16×16, troppo piccola per un dito: passa una `label`, che diventa cliccabile anche lei.
+- `onChanged: null` = disabled.
+- `tristate: true` allows `value: null` ("partially"). The cycle is false → true → null → false.
+- The box is 16×16, too small for a finger: pass a `label`, which becomes clickable too.
 
 ## Slider · `KaamosSlider`
 
@@ -71,41 +75,48 @@ KaamosSlider(
   onChanged: (v) => setState(() => volume = v),
   min: 0,
   max: 1,
-  divisions: 10,          // facoltativo: salta a passi
+  divisions: 10,          // optional: jumps in steps
   semanticLabel: 'Volume',
 )
 ```
 
-Tastiera: ← → ↑ ↓ un passo (una divisione, o l'1%), PagSu/PagGiù dieci passi, Home/Fine minimo e massimo. Gli screen reader possono aumentare e diminuire il valore.
+Keyboard: ← → ↑ ↓ one step (one division, or 1%), PageUp/PageDown ten steps, Home/End minimum and maximum. Screen readers can increase and decrease the value.
 
 ## Select · `KaamosSelect`
 
 ```dart
 KaamosSelect<String>(
-  value: lingua,
-  placeholder: 'Scegli una lingua',
-  semanticLabel: 'Lingua',
-  onChanged: (v) => setState(() => lingua = v),
+  value: language,
+  placeholder: 'Choose a language',
+  semanticLabel: 'Language',
+  onChanged: (v) => setState(() => language = v),
   options: const [
-    KaamosSelectOption(value: 'fi', label: 'Suomi', group: 'Paesi nordici'),
-    KaamosSelectOption(value: 'sv', label: 'Svenska', group: 'Paesi nordici'),
+    KaamosSelectOption(value: 'fi', label: 'Suomi', group: 'Nordic countries'),
+    KaamosSelectOption(value: 'sv', label: 'Svenska', group: 'Nordic countries'),
     KaamosSelectOption(value: 'is', label: 'Íslenska', enabled: false),
     KaamosSelectOption(value: 'it', label: 'Italiano'),
   ],
 )
 ```
 
-La lista è disegnata da noi: identica ovunque, niente "ruota" di iOS. Si apre sotto il campo (sopra se manca spazio), larga almeno quanto il campo, alta al massimo 288px. Opzioni consecutive con lo stesso `group` stanno sotto un titolo, come `<optgroup>`.
+The list is drawn by us: identical everywhere, no iOS "wheel". It opens below the field (above if there is no room), at least as wide as the field, at most 288px tall. Consecutive options with the same `group` sit under a heading, like `<optgroup>`.
 
-**Tastiera** (il focus resta sempre sul campo):
+**Keyboard** (focus always stays on the field):
 
-| Tasto            | Lista chiusa              | Lista aperta                                     |
-| ---------------- | ------------------------- | ------------------------------------------------ |
-| ↓ ↑ Invio Spazio | apre                      | ↓ ↑ si muovono (saltando le disabilitate), Invio e Spazio scelgono |
-| Home / Fine      | apre sulla prima / ultima | prima / ultima opzione                           |
-| PagSu / PagGiù   |                           | salta di 10                                      |
-| Esc              |                           | chiude senza cambiare                            |
-| Tab              |                           | sceglie l'opzione attiva e prosegue              |
-| Lettere          | cambia subito valore      | sposta l'opzione attiva                          |
+| Key               | List closed               | List open                                                      |
+| ----------------- | ------------------------- | -------------------------------------------------------------- |
+| ↓ ↑ Enter Space   | opens                     | ↓ ↑ move (skipping disabled options), Enter and Space choose   |
+| Home / End        | opens on the first / last | first / last option                                            |
+| PageUp / PageDown |                           | jumps by 10                                                    |
+| Esc               |                           | closes without changing                                        |
+| Tab               |                           | chooses the active option and moves on                         |
+| Letters           | changes the value at once | moves the active option                                        |
 
-Ricerca digitando: lettere diverse cercano l'inizio del testo ("sv" → Svenska), la stessa lettera ripetuta scorre le opzioni che iniziano con lei. Dopo mezzo secondo di pausa si ricomincia.
+![Open select](../../test/components/overlay/goldens/select_open.png)
+
+Type to search: different letters search the start of the text ("sv" → Svenska), the same letter repeated cycles through the options starting with it. After half a second of pause it starts over.
+
+## See also
+
+- [Foundation](../foundation.md#anchored-overlays-kaamosanchoredoverlay): how the select list is positioned
+- [Overlays](overlays.md)

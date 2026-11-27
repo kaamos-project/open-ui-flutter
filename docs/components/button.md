@@ -1,6 +1,8 @@
+[Home](../README.md) › [Components](../README.md#components) › Button
+
 # Button · `KaamosButton`
 
-Bottone d'azione. Equivalente di `<kaamos-button>` in open-ui-web.
+Action button. Equivalent of `<kaamos-button>` in open-ui-web.
 
 ```dart
 KaamosButton(onPressed: save, child: const Text('Download'))
@@ -10,35 +12,40 @@ KaamosButton(
   trailing: const Text('→'),
   child: const Text('Learn more'),
 )
-KaamosButton(onPressed: null, child: const Text('Download')) // disabilitato
+KaamosButton(onPressed: null, child: const Text('Download')) // disabled
 ```
 
-![Varianti](../test/components/button/goldens/button_variants.png)
+![Variants](../../test/components/button/goldens/button_variants.png)
 
-## Parametri
+## Parameters
 
-| Parametro       | Tipo                  | Default   | Note                                             |
-| --------------- | --------------------- | --------- | ------------------------------------------------ |
-| `onPressed`     | `VoidCallback?`       | obbligatorio | `null` = disabilitato                         |
-| `child`         | `Widget`              | obbligatorio | di solito un `Text`                           |
-| `variant`       | `KaamosButtonVariant` | `primary` | `primary`, `secondary`, `tertiary`, `install`    |
-| `leading`       | `Widget?`             | `null`    | prima dell'etichetta, 8px di distanza            |
-| `trailing`      | `Widget?`             | `null`    | dopo l'etichetta, 8px di distanza                |
-| `focusNode`     | `FocusNode?`          | `null`    | per dare il focus da codice                      |
-| `autofocus`     | `bool`                | `false`   |                                                  |
-| `semanticLabel` | `String?`             | `null`    | per gli screen reader, utile con sole icone      |
+| Parameter       | Type                  | Default   | Notes                                           |
+| --------------- | --------------------- | --------- | ----------------------------------------------- |
+| `onPressed`     | `VoidCallback?`       | required  | `null` = disabled                               |
+| `child`         | `Widget`              | required  | usually a `Text`                                |
+| `variant`       | `KaamosButtonVariant` | `primary` | `primary`, `secondary`, `tertiary`, `install`   |
+| `leading`       | `Widget?`             | `null`    | before the label, 8px apart                     |
+| `trailing`      | `Widget?`             | `null`    | after the label, 8px apart                      |
+| `focusNode`     | `FocusNode?`          | `null`    | to focus it from code                           |
+| `autofocus`     | `bool`                | `false`   |                                                 |
+| `semanticLabel` | `String?`             | `null`    | for screen readers, useful with icons only      |
 
-Le icone dentro `leading`/`trailing` ricevono colore e misura (16px) da un `IconTheme`.
+Icons in `leading`/`trailing` get their colour and size (16px) from an `IconTheme`.
 
-## Tastiera e accessibilità
+## Keyboard and accessibility
 
-- Tab sposta il focus, Invio o Spazio lo attivano.
-- L'anello del focus compare solo usando la tastiera.
-- Gli screen reader lo annunciano come pulsante, con lo stato abilitato/disabilitato.
+- Tab moves focus, Enter or Space activates it.
+- The focus ring only appears when using the keyboard.
+- Screen readers announce it as a button, with its enabled/disabled state.
 
-## Linee guida (DESIGN.md)
+## Guidelines (DESIGN.md)
 
-- **Un solo `primary` per schermata**: il bianco è riservato all'azione principale.
-- `secondary` per azioni leggere ("Learn more →"), `tertiary` per azioni medie dentro le card, `install` sulle card dello store.
-- Altezza 36px (install 32px) su tutte le piattaforme: è già sopra la soglia WCAG AA (24px) per i bersagli touch, quindi una densità sola.
-- Come sul web, non c'è uno stato hover: su touch non esisterebbe, e l'aspetto resta identico ovunque.
+- **Only one `primary` per screen**: white is reserved for the main action.
+- `secondary` for light actions ("Learn more →"), `tertiary` for medium actions inside cards, `install` on store cards.
+- Height 36px (install 32px) on every platform: already above the WCAG AA threshold (24px) for touch targets, so one density only.
+- As on the web, there is no hover state: it wouldn't exist on touch, and the look stays identical everywhere.
+
+## See also
+
+- [Foundation](../foundation.md#kaamospressable): the behaviour under every button
+- [Navigation](navigation.md): pill tabs and the nav bar

@@ -1,38 +1,42 @@
+[Home](../README.md) › [Components](../README.md#components) › Command palette
+
 # Command palette · `showKaamosCommandPalette`
 
-La "palette dei comandi": si apre con ⌘K (Ctrl+K su Linux e Windows), scrivi per filtrare, ti muovi con le frecce e scegli con Invio. È il componente simbolo del DESIGN.md.
+The command palette: it opens with ⌘K (Ctrl+K on Linux and Windows), you type to filter, move with the arrows and pick with Enter. It is the signature component of DESIGN.md.
 
 ```dart
 const commands = [
-  KaamosCommand(value: 'new', label: 'Nuova email', trailing: KaamosKeycap('⌘ N'), keywords: ['scrivi']),
-  KaamosCommand(value: 'search', label: 'Cerca nella posta'),
-  KaamosCommand(value: 'settings', label: 'Impostazioni'),
+  KaamosCommand(value: 'new', label: 'New email', trailing: KaamosKeycap('⌘ N'), keywords: ['write']),
+  KaamosCommand(value: 'search', label: 'Search mail'),
+  KaamosCommand(value: 'settings', label: 'Settings'),
 ];
 
-// Con la scorciatoia ⌘K / Ctrl+K:
+// With the ⌘K / Ctrl+K shortcut:
 KaamosCommandPaletteShortcut<String>(
   commands: commands,
   onSelected: run,
   child: const HomePage(),
 )
 
-// Oppure da codice:
+// Or from code:
 final cmd = await showKaamosCommandPalette<String>(context: context, commands: commands);
 ```
 
-## Comandi · `KaamosCommand`
+![Command palette](../../test/components/command_palette/goldens/command_palette.png)
 
-| Campo      | Note                                                  |
+## Commands · `KaamosCommand`
+
+| Field      | Notes                                                 |
 | ---------- | ----------------------------------------------------- |
-| `value`    | Quello che ricevi quando il comando viene scelto      |
-| `label`    | Il testo della riga, ed è quello in cui si cerca      |
-| `leading`  | Icona a sinistra                                      |
-| `trailing` | Di solito i keycap della scorciatoia                  |
-| `keywords` | Altre parole che trovano il comando                   |
+| `value`    | What you get back when the command is chosen          |
+| `label`    | The row's text, and what the search looks in         |
+| `leading`  | Icon on the left                                      |
+| `trailing` | Usually the shortcut's keycaps                        |
+| `keywords` | Other words that find the command                     |
 
-## Filtro
+## Filter
 
-Di default (`kaamosContainsFilter`) un comando è trovato se il testo o una keyword **contiene** la ricerca, senza distinguere maiuscole e minuscole. Puoi passare il tuo:
+By default (`kaamosContainsFilter`) a command matches if its label or a keyword **contains** the query, case-insensitively. You can pass your own:
 
 ```dart
 showKaamosCommandPalette<String>(
@@ -42,10 +46,15 @@ showKaamosCommandPalette<String>(
 );
 ```
 
-`query` arriva già in minuscolo, senza spazi ai bordi, e non è mai vuota.
+`query` arrives already lower-cased, trimmed, and never empty.
 
-## Accessibilità e performance
+## Accessibility and performance
 
-- Il focus resta sempre nel campo di ricerca (pattern ARIA combobox): puoi continuare a scrivere mentre ti muovi con ↑ ↓.
-- È una route modale: Esc, il tasto indietro o un clic fuori la chiudono e restituiscono `null`.
-- La lista usa `ListView.builder` con righe ad altezza fissa: costruisce solo le righe visibili, quindi resta veloce anche con migliaia di comandi.
+- Focus always stays in the search field (ARIA combobox pattern): you can keep typing while you move with ↑ ↓.
+- It is a modal route: Esc, the back button or a click outside close it and return `null`.
+- The list uses `ListView.builder` with fixed-height rows: it builds only the visible rows, so it stays fast even with thousands of commands.
+
+## See also
+
+- [Overlays](overlays.md)
+- [Static components](static.md#keycap--kaamoskeycap)
