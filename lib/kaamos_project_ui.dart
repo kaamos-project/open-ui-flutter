@@ -21,6 +21,8 @@ export 'src/components/card/card.dart';
 export 'src/components/checkbox/checkbox.dart';
 export 'src/components/command_palette/command_palette.dart';
 export 'src/components/dialog/dialog.dart';
+export 'src/components/drawer/drawer.dart';
+export 'src/components/fab/fab.dart';
 export 'src/components/keycap/keycap.dart';
 export 'src/components/link/link.dart';
 export 'src/components/menu/menu.dart';

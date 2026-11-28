@@ -12,6 +12,7 @@ class ButtonSection extends StatefulWidget {
 
 class _ButtonSectionState extends State<ButtonSection> {
   String _last = 'Nessun bottone premuto';
+  bool _fabExtended = true;
 
   void _pressed(String name) => setState(() => _last = 'Premuto: $name');
 
@@ -47,6 +48,21 @@ class _ButtonSectionState extends State<ButtonSection> {
           children: [
             for (final v in KaamosButtonVariant.values)
               KaamosButton(onPressed: null, variant: v, child: Text(v.name)),
+          ],
+        ),
+        GalleryRow(
+          children: [
+            KaamosFab(
+              onPressed: () => _pressed('fab'),
+              icon: const KaamosIcon(KaamosIcons.menu),
+              label: 'Scrivi',
+              extended: _fabExtended,
+            ),
+            KaamosButton(
+              variant: KaamosButtonVariant.tertiary,
+              onPressed: () => setState(() => _fabExtended = !_fabExtended),
+              child: Text(_fabExtended ? 'Riduci il FAB' : 'Espandi il FAB'),
+            ),
           ],
         ),
         Text(_last),
