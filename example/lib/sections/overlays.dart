@@ -37,6 +37,29 @@ class _OverlaySectionState extends State<OverlaySection> {
     _say(ok == null ? 'Dialog chiuso' : (ok ? 'Eliminato' : 'Annullato'));
   }
 
+  Future<void> _drawer() async {
+    final picked = await showKaamosDrawer<String>(
+      context: context,
+      barrierLabel: 'Chiudi cassetto',
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 8,
+          children: [
+            for (final f in ['Posta in arrivo', 'Inviati', 'Cestino'])
+              KaamosButton(
+                variant: KaamosButtonVariant.tertiary,
+                onPressed: () => Navigator.of(context).pop(f),
+                child: Text(f),
+              ),
+          ],
+        ),
+      ),
+    );
+    _say(picked ?? 'Cassetto chiuso');
+  }
+
   @override
   Widget build(BuildContext context) {
     return GallerySection(
@@ -48,6 +71,11 @@ class _OverlaySectionState extends State<OverlaySection> {
               variant: KaamosButtonVariant.tertiary,
               onPressed: _confirm,
               child: const Text('Dialog'),
+            ),
+            KaamosButton(
+              variant: KaamosButtonVariant.tertiary,
+              onPressed: _drawer,
+              child: const Text('Cassetto'),
             ),
             KaamosPopover(
               content: const Text(

@@ -5,6 +5,7 @@ import '../../foundation/focus_ring.dart';
 import '../../foundation/icons.dart';
 import '../../foundation/pressable.dart';
 import '../../foundation/theme.dart';
+import '../drawer/drawer.dart';
 
 /// Un link della navigazione principale.
 class KaamosNavItem {
@@ -146,77 +147,36 @@ Future<void> showKaamosNavDrawer({
   required BuildContext context,
   required List<KaamosNavItem> items,
   String barrierLabel = 'Close menu',
-}) {
-  final theme = KaamosTheme.of(context);
-  return Navigator.of(context).push(
-    RawDialogRoute<void>(
-      barrierDismissible: true,
+}) =>
+    showKaamosDrawer<void>(
+      context: context,
       barrierLabel: barrierLabel,
-      barrierColor: theme.scrim,
-      transitionDuration: KaamosDuration.normal,
-      pageBuilder: (context, animation, secondaryAnimation) => KaamosTheme(
-        data: theme,
-        child: _Drawer(items: items),
-      ),
-      // Entra da sinistra: SlideTransition sposta solo il layer, senza
-      // rifare il layout a ogni frame.
-      transitionBuilder: (context, animation, secondaryAnimation, child) =>
-          SlideTransition(
-        position: Tween(begin: const Offset(-1, 0), end: Offset.zero).animate(
-          CurvedAnimation(parent: animation, curve: KaamosEasing.out),
-        ),
-        child: child,
-      ),
-    ),
-  );
-}
+      builder: (context) => _DrawerLinks(items: items),
+    );
 
-class _Drawer extends StatelessWidget {
-  const _Drawer({required this.items});
+class _DrawerLinks extends StatelessWidget {
+  const _DrawerLinks({required this.items});
 
   final List<KaamosNavItem> items;
 
   @override
   Widget build(BuildContext context) {
-    final theme = KaamosTheme.of(context);
-    final width = MediaQuery.sizeOf(context).width;
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: SizedBox(
-        // w-72 max-w-[85vw]
-        width: width * 0.85 < 288 ? width * 0.85 : 288,
-        height: double.infinity,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.canvas,
-            border: Border(right: BorderSide(color: theme.hairline)),
-          ),
-          child: SafeArea(
-            right: false,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Semantics(
-                scopesRoute: true,
-                explicitChildNodes: true,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: 4,
-                  children: [
-                    for (final i in items)
-                      _NavLink(
-                        item: i,
-                        vertical: 8,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          i.onPressed();
-                        },
-                      ),
-                  ],
-                ),
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 4,
+        children: [
+          for (final i in items)
+            _NavLink(
+              item: i,
+              vertical: 8,
+              onPressed: () {
+                Navigator.of(context).pop();
+                i.onPressed();
+              },
             ),
-          ),
-        ),
+        ],
       ),
     );
   }

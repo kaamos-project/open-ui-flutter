@@ -31,7 +31,7 @@ This is why the library has its own versions of things Material gives for free: 
 | Kind | Used by | Built with | Why |
 |---|---|---|---|
 | Anchored | popover, menu, select | [`KaamosAnchoredOverlay`](foundation.md#anchored-overlays-kaamosanchoredoverlay): `OverlayPortal` + `CompositedTransformFollower` | Light: stays in the opener's tree (same theme), follows the anchor when scrolling, disappears with it |
-| Route | dialog, command palette, nav drawer | `Navigator` route | Must block the page: back button, barrier and focus trap for free |
+| Route | dialog, command palette, drawer (`showKaamosDrawer`, also behind the nav drawer) | `Navigator` route | Must block the page: back button, barrier and focus trap for free |
 
 ## Tokens
 

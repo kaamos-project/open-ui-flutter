@@ -16,6 +16,8 @@ Formato: [Keep a Changelog](https://keepachangelog.com/it/1.1.0/). Versioni: [Se
 - Overlay: `KaamosPopover`, `KaamosMenu`, `showKaamosDialog` + `KaamosDialog`.
 - Navigazione: `KaamosTabs`, `KaamosPillTab`, `KaamosNavBar` con cassetto mobile.
 - Command palette: `showKaamosCommandPalette`, `KaamosCommandPaletteShortcut`.
+- `KaamosFab`: floating action button, extended (icon + label) or collapsed to the icon.
+- `showKaamosDrawer` + `KaamosDrawerPanel`: a generic modal drawer from the left; `showKaamosNavDrawer` now uses it.
 
 ### Changed
 
