@@ -3,6 +3,27 @@ import 'package:kaamos_project_ui/kaamos_project_ui.dart';
 
 import 'section.dart';
 
+/// A sample of the Lucide set: the icons the library uses, then a few for a
+/// mail client. All 2,140 are in `KaamosIcons` (search them on lucide.dev).
+const galleryIcons = [
+  KaamosIcons.search,
+  KaamosIcons.check,
+  KaamosIcons.minus,
+  KaamosIcons.chevronDown,
+  KaamosIcons.chevronRight,
+  KaamosIcons.x,
+  KaamosIcons.menu,
+  KaamosIcons.arrowRight,
+  KaamosIcons.mail,
+  KaamosIcons.inbox,
+  KaamosIcons.send,
+  KaamosIcons.archive,
+  KaamosIcons.trash,
+  KaamosIcons.star,
+  KaamosIcons.paperclip,
+  KaamosIcons.settings,
+];
+
 class StaticSection extends StatelessWidget {
   const StaticSection({super.key});
 
@@ -43,7 +64,7 @@ class StaticSection extends StatelessWidget {
         const GalleryLabel('Icone'),
         GalleryRow(
           children: [
-            for (final icon in KaamosIcons.values)
+            for (final icon in galleryIcons)
               KaamosIcon(icon, size: 20, color: theme.onDark),
           ],
         ),

@@ -19,5 +19,11 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
               .load('packages/${KaamosFont.package}/fonts/InterVariable.ttf'),
         );
   await loader.load();
+  // Lucide icons (KaamosIcons): same reason, otherwise they'd be Ahem boxes.
+  final icons = FontLoader('packages/${KaamosFont.package}/KaamosIcons')
+    ..addFont(
+      rootBundle.load('packages/${KaamosFont.package}/fonts/KaamosIcons.ttf'),
+    );
+  await icons.load();
   await testMain();
 }
