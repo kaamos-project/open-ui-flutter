@@ -28,6 +28,7 @@ class KaamosThemeData with Diagnosticable {
     required this.disabledForeground,
     required this.hairline,
     required this.hairlineStrong,
+    required this.hairlineSoft,
     required this.focusRing,
     required this.surfaceCard,
     required this.mute,
@@ -58,6 +59,7 @@ class KaamosThemeData with Diagnosticable {
     disabledForeground: KaamosColors.ash,
     hairline: KaamosColors.hairline,
     hairlineStrong: KaamosColors.hairlineStrong,
+    hairlineSoft: KaamosColors.hairlineSoft,
     focusRing: KaamosColors.onDarkMute,
     surfaceCard: KaamosColors.surfaceCard,
     mute: KaamosColors.mute,
@@ -110,6 +112,9 @@ class KaamosThemeData with Diagnosticable {
 
   /// Bordi più visibili (bottone install).
   final Color hairlineStrong;
+
+  /// White at 8%: the fill of chips, a step above the canvas.
+  final Color hairlineSoft;
 
   /// Anello del focus da tastiera.
   final Color focusRing;
@@ -167,6 +172,7 @@ class KaamosThemeData with Diagnosticable {
     Color? disabledForeground,
     Color? hairline,
     Color? hairlineStrong,
+    Color? hairlineSoft,
     Color? focusRing,
     Color? surfaceCard,
     Color? mute,
@@ -195,6 +201,7 @@ class KaamosThemeData with Diagnosticable {
       disabledForeground: disabledForeground ?? this.disabledForeground,
       hairline: hairline ?? this.hairline,
       hairlineStrong: hairlineStrong ?? this.hairlineStrong,
+      hairlineSoft: hairlineSoft ?? this.hairlineSoft,
       focusRing: focusRing ?? this.focusRing,
       surfaceCard: surfaceCard ?? this.surfaceCard,
       mute: mute ?? this.mute,
@@ -230,6 +237,7 @@ class KaamosThemeData with Diagnosticable {
         other.disabledForeground == disabledForeground &&
         other.hairline == hairline &&
         other.hairlineStrong == hairlineStrong &&
+        other.hairlineSoft == hairlineSoft &&
         other.focusRing == focusRing &&
         other.surfaceCard == surfaceCard &&
         other.mute == mute &&
@@ -260,6 +268,7 @@ class KaamosThemeData with Diagnosticable {
         disabledForeground,
         hairline,
         hairlineStrong,
+        hairlineSoft,
         focusRing,
         surfaceCard,
         mute,

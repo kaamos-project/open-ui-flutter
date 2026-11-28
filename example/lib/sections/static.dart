@@ -28,6 +28,18 @@ class StaticSection extends StatelessWidget {
             KaamosKeycap('Esc'),
           ],
         ),
+        const GalleryLabel('Chip'),
+        GalleryRow(
+          children: [
+            const KaamosChip('Lavoro', size: KaamosChipSize.small),
+            const KaamosChip('Viaggi'),
+            KaamosChip(
+              'Marta Rossi',
+              onRemove: () {},
+              removeLabel: 'Togli Marta Rossi',
+            ),
+          ],
+        ),
         const GalleryLabel('Icone'),
         GalleryRow(
           children: [

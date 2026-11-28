@@ -19,6 +19,7 @@ export 'src/components/badge/badge.dart';
 export 'src/components/button/button.dart';
 export 'src/components/card/card.dart';
 export 'src/components/checkbox/checkbox.dart';
+export 'src/components/chip/chip.dart';
 export 'src/components/command_palette/command_palette.dart';
 export 'src/components/dialog/dialog.dart';
 export 'src/components/drawer/drawer.dart';

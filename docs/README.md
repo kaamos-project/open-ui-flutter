@@ -18,7 +18,7 @@
 ## Components
 
 - [Button](components/button.md): button and floating action button
-- [Static components](components/static.md): badge, keycap, app icon tile, card, link
+- [Static components](components/static.md): badge, chip, keycap, app icon tile, card, link
 - [Form controls](components/form-controls.md): text field, search bar, checkbox, slider, select
 - [Overlays](components/overlays.md): popover, menu, dialog, drawer
 - [Navigation](components/navigation.md): tabs, pill tabs, main bar with mobile drawer
