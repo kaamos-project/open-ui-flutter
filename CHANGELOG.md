@@ -17,6 +17,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/it/1.1.0/). Versioni: [Se
 - Navigazione: `KaamosTabs`, `KaamosPillTab`, `KaamosNavBar` con cassetto mobile.
 - Command palette: `showKaamosCommandPalette`, `KaamosCommandPaletteShortcut`.
 - `KaamosFab`: floating action button, extended (icon + label) or collapsed to the icon.
+- `KaamosChip`: a visible chip for labels, recipients and files, with an optional X; `KaamosThemeData.hairlineSoft`.
 - `showKaamosDrawer` + `KaamosDrawerPanel`: a generic modal drawer from the left; `showKaamosNavDrawer` now uses it.
 
 ### Changed
