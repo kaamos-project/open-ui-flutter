@@ -71,11 +71,11 @@ packages:
     dependency: transitive
     description:
       path: "dist/flutter"
-      ref: "v0.1.0"
-      resolved-ref: "6e20387ee678ddf23d7b2535cc025cf295803755"
+      ref: "v0.2.0"
+      resolved-ref: "58275ef181173d0155b4f6997228b9fa20bb0019"
       url: "https://github.com/kaamos-project/open-design-tokens"
     source: git
-    version: "0.1.0"
+    version: "0.2.0"
   kaamos_project_ui:
     dependency: "direct main"
     description:

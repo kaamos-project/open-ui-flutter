@@ -115,7 +115,7 @@ class KaamosChip extends StatelessWidget {
                       dimension: small ? 20 : 24,
                       child: Center(
                         child: KaamosIcon(
-                          KaamosIcons.close,
+                          KaamosIcons.x,
                           size: 12,
                           color: states.contains(WidgetState.hovered) ||
                                   states.contains(WidgetState.focused)

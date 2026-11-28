@@ -4,6 +4,18 @@ import 'package:kaamos_project_ui/kaamos_project_ui.dart';
 
 import '../../helpers.dart';
 
+/// The icons the library itself uses.
+const _icons = [
+  KaamosIcons.search,
+  KaamosIcons.check,
+  KaamosIcons.minus,
+  KaamosIcons.chevronDown,
+  KaamosIcons.chevronRight,
+  KaamosIcons.x,
+  KaamosIcons.menu,
+  KaamosIcons.arrowRight,
+];
+
 void main() {
   testWidgets('keycap: alto 20px e largo almeno 20px', (tester) async {
     await tester.pumpWidget(wrap(const KaamosKeycap('K')));
@@ -93,7 +105,7 @@ void main() {
                 mainAxisSize: MainAxisSize.min,
                 spacing: 12,
                 children: [
-                  for (final icon in KaamosIcons.values)
+                  for (final icon in _icons)
                     KaamosIcon(icon, color: KaamosColors.onDark),
                 ],
               ),
